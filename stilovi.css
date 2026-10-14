@@ -19,6 +19,7 @@ body {
     background-color: var(--bg-color);
     color: var(--text-color);
     line-height: 1.6;
+    padding-bottom: 60px; /* Razmak zbog fiksiranog footera */
 }
 
 /* 1. SKROLER VESTI (TICKER) */
@@ -77,42 +78,78 @@ body {
 }
 
 /* 2. GLAVNI HEADER I LOGO */
-header {
-    background-color: var(--card-bg);
-    border-bottom: 1px solid var(--border-color);
+#header-container {
     position: sticky;
     top: 0;
     z-index: 1000;
+    background-color: var(--bg-color, #0f172a);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+header {
+    background-color: var(--card-bg);
+    border-bottom: 1px solid var(--border-color);
 }
 
 .nav-container {
-    width=100%;
+    width: 100%;
     max-width: 1300px;
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15px 20px;
+    padding: 10px 20px;
+    gap: 20px;
 }
 
-.logo {
+a.logo {
     font-size: 1.6rem;
     font-weight: bold;
     color: var(--text-color);
     text-decoration: none;
+    margin-right: 0px;
+    white-space: nowrap;
 }
 
-    .logo .nomadi {
-        color: #38bdf8;
+.logo .nomadi {
+    color: #38bdf8;
+}
+
+.logo .separator {
+    color: var(--muted-text);
+    margin: 0 2px;
+}
+
+.logo .taoci {
+    color: var(--danger-color);
+}
+
+/* LOGOTIPI U ZAGLAVLJU LEVO OD NASLOVA */
+.header-partner-logos {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-left: 15px;
+}
+
+.logo-box-hdr {
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+    .logo-box-hdr.white-bg {
+        background-color: #ffffff;
+        padding: 1px 4px;
     }
 
-    .logo .separator {
-        color: var(--muted-text);
-        margin: 0 2px;
-    }
-
-    .logo .taoci {
-        color: var(--danger-color);
+    .logo-box-hdr img {
+        height: 100%;
+        width: auto;
+        object-fit: contain;
     }
 
 nav ul {
@@ -188,9 +225,9 @@ nav a {
     display: flex;
 }
 
-/* 4. STRUKTURA SADRŽAJA & GRID (SLIKA 2 LOOK) */
+/* 4. STRUKTURA SADRŽAJA & GRID */
 .container {
-    max-width: 1100px;
+    max-width: 1200px;
     margin: 30px auto;
     padding: 0 20px;
 }
@@ -229,12 +266,18 @@ nav a {
     border: 1px solid var(--border-color);
     border-radius: 8px;
     padding: 20px;
-    flex: 1 1 300px;
+    flex: 1 1 280px;
     transition: transform 0.2s;
 }
 
     .card:hover {
         transform: translateY(-4px);
+    }
+
+    .card a {
+        color: inherit;
+        text-decoration: none;
+        display: block;
     }
 
     .card span.tag, .tag {
@@ -259,7 +302,114 @@ nav a {
         font-size: 0.9rem;
     }
 
-/* 5. STILOVI ZA STRANICU ČLANKA (BANSKO) */
+/* 5. RESPONZIVNI DVOKOLONSKI RASPORED (INDEX) */
+.main-content-layout {
+    display: flex;
+    gap: 30px;
+    align-items: flex-start;
+    margin-top: 20px;
+}
+
+.left-column {
+    flex: 1 1 68%;
+    min-width: 0;
+}
+
+.right-sidebar {
+    flex: 1 1 32%;
+    position: sticky;
+    top: 90px;
+}
+
+.about-summary {
+    margin-bottom: 30px;
+    background: var(--card-bg, #1e293b);
+    padding: 25px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color, #334155);
+}
+
+    .about-summary h2 {
+        color: var(--accent-color, #38bdf8);
+        margin-bottom: 15px;
+    }
+
+    .about-summary p {
+        line-height: 1.7;
+        color: var(--text-color, #e2e8f0);
+    }
+
+/* SIDEBAR STILOVI ZA EDUKACIJE */
+.sidebar-box {
+    background-color: var(--card-bg, #1e293b);
+    border: 1px solid var(--border-color, #334155);
+    border-radius: 8px;
+    padding: 20px;
+}
+
+    .sidebar-box h3 {
+        font-size: 1.15rem;
+        color: var(--accent-color, #38bdf8);
+        margin-bottom: 8px;
+    }
+
+.sidebar-desc {
+    font-size: 0.85rem;
+    color: var(--muted-text, #94a3b8);
+    margin-bottom: 15px;
+}
+
+.sidebar-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+    .sidebar-list li a {
+        display: block;
+        background-color: rgba(15, 23, 42, 0.6);
+        border: 1px solid var(--border-color, #334155);
+        border-radius: 6px;
+        padding: 12px;
+        text-decoration: none;
+        color: var(--text-color, #fff);
+        transition: transform 0.2s, border-color 0.2s;
+    }
+
+        .sidebar-list li a:hover {
+            border-color: var(--accent-color, #38bdf8);
+            transform: translateX(3px);
+        }
+
+    .sidebar-list .badge {
+        display: inline-block;
+        background-color: rgba(56, 189, 248, 0.15);
+        color: var(--accent-color, #38bdf8);
+        font-size: 0.7rem;
+        font-weight: bold;
+        padding: 2px 6px;
+        border-radius: 3px;
+        margin-bottom: 4px;
+        text-transform: uppercase;
+    }
+
+    .sidebar-list strong {
+        display: block;
+        font-size: 0.95rem;
+    }
+
+    .sidebar-list small {
+        display: block;
+        font-size: 0.8rem;
+        color: var(--muted-text, #94a3b8);
+        margin-top: 2px;
+        line-height: 1.3;
+    }
+
+/* 6. STILOVI ZA STRANICU ČLANKA */
 .article-container {
     max-width: 800px;
     margin: 40px auto;
@@ -315,14 +465,26 @@ nav a {
         text-decoration: underline;
     }
 
+/* 7. FOOTER STILOVI */
 footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 999;
+    background-color: var(--card-bg, #1e293b);
+    border-top: 1px solid var(--border-color, #334155);
+    padding: 12px 0;
     text-align: center;
-    padding: 30px;
-    color: var(--muted-text);
-    border-top: 1px solid var(--border-color);
-    margin-top: 50px;
+    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.3);
 }
-/* --- FOOTER LOGOI --- */
+
+    footer p {
+        margin: 0;
+        font-size: 0.85rem;
+        color: var(--muted-text, #94a3b8);
+    }
+
 .footer-partners {
     margin-bottom: 20px;
     padding-bottom: 20px;
@@ -346,7 +508,7 @@ footer {
 }
 
 .logo-box {
-    height: 100px; /* Podesi visinu po želji (npr. 70px do 90px) */
+    height: 100px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -359,7 +521,6 @@ footer {
         background-color: #ffffff;
     }
 
-    /* Ključni deo: tera <a> tag i <img> unutar logo-boxa da poštuju visinu roditelja */
     .logo-box a {
         display: flex;
         align-items: center;
@@ -375,94 +536,44 @@ footer {
         height: auto;
         object-fit: contain;
     }
-.card a {
-    color: inherit; /* Preuzima boju roditelja (belu boju naslova) */
-    text-decoration: none; /* Uklanja podvučenu liniju */
-    display: block; /* Omogućava da ceo naslov/blok bude klikabilan */
-}
-footer {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    z-index: 999;
-    background-color: var(--card-bg, #1e293b); /* Osigurava da je pozadina neprovidna pri skrolovanju teksta ispod */
-    border-top: 1px solid var(--border-color, #334155);
-    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.3);
-}
-body {
-    padding-bottom: 250px; /* Prilagodi visini footera ako je potrebno */
-}
-/* Fiksirani Header na vrhu ekrana */
-#header-container {
-    position: sticky;
-    top: 0;
-    z-index: 1000; /* Osigurava da je iznad teksta i slika pri skrolovanju */
-    background-color: var(--bg-color, #0f172a); /* Neprovidna pozadina da se tekst ne providi iza */
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4); /* Blaga senka na dnu zaglavlja */
-}
-/* Sređivanje kontejnera u zaglavlju */
-.nav-container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px 20px;
-    gap: 20px
-}
 
-/* Logotipi u zaglavlju levo od naslova */
-.header-partner-logos {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-left: 15px;
-    
-}
-
-.logo-box-hdr {
-    height: 60px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 4px;
-    overflow: hidden;
-}
-
-    .logo-box-hdr.white-bg {
-        background-color: #ffffff;
-        padding: 1px 4px;
+/* 8. MEDIA QUERIES FOR MOBILE DEVICES (MOBILNI PRIKAZ) */
+@media (max-width: 850px) {
+    .main-content-layout {
+        flex-direction: column;
     }
 
-    .logo-box-hdr img {
-        height: 100%;
-        width: auto;
-        object-fit: contain;
+    .left-column,
+    .right-sidebar {
+        width: 100%;
+        flex: 1 1 100%;
     }
 
-/* Smanjivanje prostora za footer jer je sad tanak */
-footer {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    z-index: 999;
-    background-color: var(--card-bg, #1e293b);
-    border-top: 1px solid var(--border-color, #334155);
-    padding: 12px 0;
-    text-align: center;
-}
-
-    footer p {
-        margin: 0;
-        font-size: 0.85rem;
-        color: var(--muted-text, #94a3b8);
+    .right-sidebar {
+        position: static;
+        margin-top: 20px;
     }
 
-/* Prilagođavanje paddinga na dnu pošto je footer sad visine samo ~40px */
-body {
-    padding-bottom: 60px;
-}
-a.logo {
-    margin-right: 0px; /* Blagi razmak od navigacionog menija */
-    white-space: nowrap;
+    figure img {
+        max-height: 280px !important;
+    }
+
+    .hero {
+        padding: 25px 15px;
+    }
+
+        .hero h1 {
+            font-size: 1.8rem;
+        }
+
+    .nav-container {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    nav ul {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
 }
